@@ -41,6 +41,12 @@ public class CameraController : MonoBehaviour
         transform.Rotate(Vector3.forward, rotateInput * rotateSpeed * Time.unscaledDeltaTime);
     }
 
+    // Centre la camera sur un point du monde (garde son z)
+    public void FocusOn(Vector3 worldPosition)
+    {
+        transform.position = new Vector3(worldPosition.x, worldPosition.y, transform.position.z);
+    }
+
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();

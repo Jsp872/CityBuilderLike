@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +12,9 @@ public class GridCursor : MonoBehaviour
 
     public Vector2Int HoveredCell { get; private set; }
     public bool IsHoveringGrid { get; private set; }
+
+
+    public event Action<Vector2Int> OnCellClicked;
 
     private void Awake()
     {
@@ -44,11 +48,7 @@ public class GridCursor : MonoBehaviour
     {
         if (context.performed && IsHoveringGrid)
         {
-            Cell cell = gridManager.GetCell(HoveredCell);
-            if (cell != null)
-            {
-                Debug.Log($"Clicked on cell at {HoveredCell}");
-            }
+            OnCellClicked?.Invoke(HoveredCell);
         }
     }
 }
